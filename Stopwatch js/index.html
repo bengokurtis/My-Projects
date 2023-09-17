@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Stopwatch</title>
+</head>
+
+<script>
+    window.onload = function(){
+        let minutes = 0;
+        let seconds = 0;
+        let milliseconds = 0;
+        let appendMinutes = document.querySelector("#minutes");
+        let appendSeconds = document.querySelector("#seconds");
+        let appendMilliseconds = document.querySelector("#milliseconds");
+
+        let startBtn = document.querySelector("#start");
+        let stopBtn = document.querySelector("#stop");
+        let resetBtn = document.querySelector("#reset");
+
+        let Interval;
+
+        const startTimer =() => {
+            milliseconds++;
+            if(milliseconds < 9){
+                appendMilliseconds.innerHTML = "0" + milliseconds;
+            }
+            if(milliseconds > 9){
+                appendMilliseconds.innerHTML = milliseconds;
+            }
+            if(milliseconds > 99){
+                seconds++;
+                appendSeconds.innerHTML = "0" + seconds;
+                milliseconds = 0;
+                appendMilliseconds.innerHTML = "0" + 0;
+            }
+            if(seconds > 9){
+                appendSeconds.innerHTML = seconds;
+            }
+            if(seconds > 59){
+                minutes++;
+                appendMinutes.innerHTML = "0" + minutes;
+                seconds = 0;
+                appendSeconds.innerHTML = "0" + 0;
+            }
+        };
+
+        startBtn.onclick = () => {
+            clearInterval(Interval);
+            Interval = setInterval(startTimer, 10);
+        };
+
+        stopBtn.onclick = () => {
+clearInterval(Interval);
+        };
+        resetBtn.onclick = () => {
+            clearInterval(Interval);
+            minutes = "00";
+            seconds = "00";
+            milliseconds = "00";
+            appendMinutes.innerHTML = minutes;
+            appendSeconds.innerHTML = seconds;
+            appendMilliseconds.innerHTML = milliseconds;
+        };
+
+    };
+</script>
+
+<body>
+
+    <div class="container">
+        <h1>Stopwatch</h1>
+        <p class="time">
+            <span id="minutes">00</span>:<span id="seconds">00</span>:<span id="milliseconds">00</span>
+        </p>
+                <button id="start">Start</button>
+                <button id="stop">Stop</button>
+                <button id="reset">Reset</button>
+    </div>
+    
+</body>
+</html>
